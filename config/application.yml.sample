@@ -1,0 +1,10 @@
+# Database
+DB_NAME: "app_development"
+DB_USERNAME: "root"
+DB_PASSWORD: ""
+DB_HOST: "localhost"
+DB_PORT: "3306"
+DB_POOL: "10"
+
+# MISC
+SECRET_KEY_BASE: "xxxx"
