@@ -1,12 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails', '~> 5.0.0', '>= 5.0.3'
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'puma', '~> 3.0'
 
-gem 'administrate', git: 'https://github.com/thoughtbot/administrate.git'
-gem 'bootstrap', '~> 4.0.0.alpha4'
-gem 'bourbon'
+gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'figaro'
@@ -28,8 +26,16 @@ end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.5'
+  gem 'rubocop', '~> 0.48', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :test do
+  gem 'codeclimate-test-reporter', '~> 1.0.0'
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'simplecov'
+  gem 'vcr'
+  gem 'webmock'
 end

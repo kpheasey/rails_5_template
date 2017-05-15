@@ -1,0 +1,52 @@
+## Customize the test machine
+machine:
+
+  ruby:
+    version:
+      2.3.4
+
+  node:
+    version:
+      6.1.0
+
+  services:
+    - redis
+
+  environment:
+    AWS_REGION: "us-east-2"
+    DEVISE_SECRET_KEY: "03d477f99f473d576ac622c252e92d6027f1605ee0eda6a54bc82f87282b2958df783ddebe093eba5baec61dca0fea25d52af80bd037163a87f099f4c7510c23"
+    FACEBOOK_APP_ID: "xxxx"
+    FACEBOOK_APP_SECRET: "xxxx"
+    GOOGLE_API_KEY: "xxxx"
+    GOOGLE_CLIENT_ID: "xxxx"
+    GOOGLE_CLIENT_SECRET: "xxxx"
+    GOOGLE_STATIC_MAPS_SECRET: "xxxx"
+    LINKEDIN_CLIENT_ID: "xxxx"
+    LINKEDIN_CLIENT_SECRET: "xxxx"
+    MANDRILL_API_KEY: "xxxx"
+    PUSHER_APP_ID: "xxxx"
+    PUSHER_KEY: "xxxx"
+    PUSHER_SECRET: "xxxx"
+    SECRET_KEY_BASE: "7406a7e94b6e32e3df3f620129595c9cb7da35bd1376b058834db6cc4c29129304995eee8db86dbc1dafe596db7f12f37ae2aa65319e3dcc983bcff09df35985"
+    SIDEKIQ_HOST: "127.0.0.1"
+    SIDEKIQ_PORT: "6379"
+    SOLR_HOST: "localhost"
+    SOLR_LOG_LEVEL: "WARNING"
+    SOLR_PATH: "/solr/test"
+    SOLR_PORT: "8982"
+    TWILIO_AUTHTOKEN: "xxxx"
+    TWILIO_FROM_NUMBER: "xxxx"
+    TWILIO_SID: "xxxx"
+    TWITTER_KEY: "xxxx"
+    TWITTER_SECRET: "xxxx"
+
+test:
+  post:
+    - bundle exec codeclimate-test-reporter "$CIRCLE_ARTIFACTS/coverage/.resultset.json"
+
+deployment:
+  staging:
+    branch: master
+    commands:
+      - aws opsworks update-app --region us-east-1 --app-id 3cd48e02-4cd4-4d9e-9fe7-9ed62d7b55ac --app-source Revision="${CIRCLE_BRANCH}"
+      - aws opsworks create-deployment --region us-east-1 --stack-id 1d126fd3-a034-4710-8369-91d13821efc7 --app-id 3cd48e02-4cd4-4d9e-9fe7-9ed62d7b55ac --command "{\"Name\":\"deploy\"}" --comment="CircleCI deploy staging"
